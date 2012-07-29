@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" xmlns:mq="http://www.myquizz.com" ?>
+<data>
+	<mq:quizz id="q1" lang="fr_FR">
+		<mq:label>Quizz sur retour vers le futur !</mq:label>
+		<mq:questions>
+			<mq:question>
+				<mq:label>A quelle vitesse dois aller la doloreane ?</mq:label>
+				<mq:answers>
+					<mq:answer>
+						<mq:label>20 Mph</mq:label>
+					</mq:answer>
+					<mq:answer>
+						<mq:label>30 Mph</mq:label>
+					</mq:answer>
+					<mq:answer>
+						<mq:label>40 Mph</mq:label>
+					</mq:answer>
+					<mq:answer right="true">
+						<mq:label>88 Mph</mq:label>
+					</mq:answer>
+				</mq:answers>
+			</mq:question>
+		</mq:questions>
+	</mq:quizz>
+	<mq:scenario start="start" end="end">
+		<mq:binds>
+			<mq:bind type="*" target="question" />
+		</mq:binds>
+		<mq:rules>
+		</mq:rules>
+		<mq:screens>
+			<mq:screen id="start" position="0" format="html5">
+				<h1></h1>
+				<p></p>
+			</mq:screen>
+			<mq:screen id="question" format="html5" accept="">
+				<h1></h1>
+				<mq:aloop>
+					<input type="radio" id="" value="" />
+				</mq:aloop>
+			</mq:screen>
+			<mq:screen id="end" format="html5" accept="">
+				<h1></h1>
+				<p></p>
+			</mq:screen>
+		</mq:screens>
+	</mq:scenario>
+</data>

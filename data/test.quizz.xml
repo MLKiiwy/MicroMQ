@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data xmlns:mq="http://www.myquizz.com#">
+	<mq:quizz id="q1" lang="fr_FR">
+		<mq:label>Quizz sur retour vers le futur !</mq:label>
+		<mq:questions>
+			<mq:question>
+				<mq:label>A quelle vitesse dois aller la doloreane ?</mq:label>
+				<mq:answers>
+					<mq:answer>
+						<mq:label>20 Mph</mq:label>
+					</mq:answer>
+					<mq:answer>
+						<mq:label>30 Mph</mq:label>
+					</mq:answer>
+					<mq:answer>
+						<mq:label>40 Mph</mq:label>
+					</mq:answer>
+					<mq:answer right="true">
+						<mq:label>88 Mph</mq:label>
+					</mq:answer>
+				</mq:answers>
+			</mq:question>
+		</mq:questions>
+	</mq:quizz>
+	<mq:scenario start="start" end="end">
+		<mq:binds>
+			<mq:bind type="*" question="question" answer="answer" />
+		</mq:binds>
+		<mq:rules>
+		</mq:rules>
+		<mq:screens>
+			<mq:screen id="start" position="0" format="html5" next="mq-next" type="start">
+				<![CDATA[
+					<h1><%= this.label %></h1>
+					<% if ( this.info ) { %>
+						<p><%= this.description %></p>
+					<% } %>
+					<button class="btn mq-next">Start</button>
+				]]>
+			</mq:screen>
+			<mq:screen id="question" format="html5" accept="*" answers="mq-answer" type="question">
+				<![CDATA[
+					<h1><%= this.label %></h1>
+					<% for ( index in this.answers ) { 
+						answer = this.answers[index]; %>
+						<label for="answer<%= answer.id %>"><%= answer.label %></label>
+						<input name="answer" id="answer<%= answer.id %>" type="radio" class="mq-answer" value="<%= answer.value %>"/>
+					<% } %>
+					<button class="btn mq-valid">Repondre</button>
+				]]>
+			</mq:screen>
+			<mq:screen id="answer" format="html5" accept="*" answers="mq-answer" type="answer">
+				<![CDATA[
+					<h1><%= this.label %></h1>
+					<% for ( index in this.answers ) { 
+						answer = this.answers[index]; %>
+						<label for="answer<%= answer.id %>"><%= answer.label %></label>
+						<input disabled="disabled" name="answer" id="answer<%= answer.id %>" type="radio" class="mq-answer <%= answer.isGood() ? 'mq-answer-good' : '' %> <%= answer.isWrong() ? 'mq-answer-wrong' : '' %>" value="<%= answer.value %>" <%= answer.selected ? 'checked="checked"' : '' %>/>
+					<% } %>
+					<button class="btn mq-next">Suivante</button>
+				]]>
+			</mq:screen>
+			<mq:screen id="end" format="html5" accept="" restart="mq-restart" type="end">
+				<![CDATA[
+					<h1>The end !</h1>
+					<button class="btn mq-next">Restart</button>
+				]]>
+			</mq:screen>
+		</mq:screens>
+	</mq:scenario>
+</data>

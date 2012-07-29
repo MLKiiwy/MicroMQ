@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" xmlns:mq="http://www.myquizz.com" ?>
+<data>
+	<mq:questionDataTemplate id="q1" lang="fr_FR" target="movie" multiple="">
+		<mq:labels>
+			<mq:simple>Quel est le réalisateur de ce film ?</mq:simple>
+			<mq:multiple>Quels sont les réalisateurs de ce film ?</mq:multiple>
+			<mq:partial>Selectionnez un des réalisateurs de ce film ?</mq:partial>
+		</mq:labels>
+		<mq:target-good-property>director</mq:target-property>
+		<mq:target-false>
+			<mq:path>director.similar</mq:path>
+		</mq:target-false>
+		<mq:output-answers total="4" good-min="1" good-max="2" type="string" />
+	</mq:questionDataTemplate>
+</data>
+
+-> 
+
+<mq:question>
+	<mq:label>Quel est le réalisateur de ce film ?</mq:label>
+	<mq:answers>
+		<mq:answer right="true">
+			<mq:label>Georges Lucas</mq:label>
+		</mq:answer>
+		<mq:answer>
+			<mq:label>Steven Spielberg</mq:label>
+		</mq:answer>
+		<mq:answer>
+			<mq:label>Steven Spielberg</mq:label>
+		</mq:answer>
+		<mq:answer>
+			<mq:label>Steven Spielberg</mq:label>
+		</mq:answer>
+	</mq:answers>
+</mq:question>
