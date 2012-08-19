@@ -8,23 +8,31 @@
 		<title>Test MQ</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<meta http-equiv="cleartype" content="on">
+		
+		<!-- Required libraires -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script type="text/javascript" src="js/jquery.jqote2.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		
 		<script type="text/javascript" src="js/player.js"></script>
+
+		<!-- Init script -->
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var player = new window.Player('#player');
-				player.load('./data/test.quizz.xml');
-					player.run();
+				var player = new window.Player('[data-rel="player"]');
+				player.load('./data/quizz1/quizz.xml');
+				player.run();
 			});
 		</script>
 
 		<!-- Include bootstrap -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<link href="css/bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
-	<div id="player"></div>
+	<h1>Test Page - Player MicroMQ</h1>
+
+	<!-- Here is the player -->
+	<div data-rel="player"></div>
 </body>
 </html>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <data xmlns:mq="http://www.myquizz.com#">
 	<mq:quizz id="q1" lang="fr_FR">
-		<mq:label>Quizz sur retour vers le futur !</mq:label>
+		<mq:label>Quizz BTTF</mq:label>
+		<mq:description>Un petit quizz pour tester vos connaissance sur BTTF !</mq:description>
+		<mq:background url="media/back.jpg" />
 		<mq:questions>
 			<mq:question>
 				<mq:label>A quelle vitesse dois aller la doloreane ?</mq:label>
@@ -28,17 +30,17 @@
 		</mq:binds>
 		<mq:rules>
 		</mq:rules>
-		<mq:screens>
-			<mq:screen id="start" position="0" format="html5" next="mq-next" type="start">
+		<mq:screens cssGlobalClass="mq-player" allowBackground="true">
+			<mq:screen id="start" format="html5" next="mq-next" type="start" cssClass="mq-start" >
 				<![CDATA[
-					<h1><%= this.label %></h1>
+					<h1 class="mq-title"><%= this.label %></h1>
 					<% if ( this.info ) { %>
-						<p><%= this.description %></p>
+						<p class="mq-description"><%= this.description %></p>
 					<% } %>
-					<button class="btn mq-next">Start</button>
+					<button class="btn mq-next" data-rel="mq-next">Start</button>
 				]]>
 			</mq:screen>
-			<mq:screen id="question" format="html5" accept="*" answers="mq-answer" type="question">
+			<mq:screen id="question" format="html5" accept="*" answers="mq-answer" type="question" cssClass="mq-question">
 				<![CDATA[
 					<h1><%= this.label %></h1>
 					<% for ( index in this.answers ) { 
@@ -49,7 +51,7 @@
 					<button class="btn mq-valid">Repondre</button>
 				]]>
 			</mq:screen>
-			<mq:screen id="answer" format="html5" accept="*" answers="mq-answer" type="answer">
+			<mq:screen id="answer" format="html5" accept="*" answers="mq-answer" type="answer" cssClass="mq-answer">
 				<![CDATA[
 					<h1><%= this.label %></h1>
 					<% for ( index in this.answers ) { 
@@ -60,7 +62,7 @@
 					<button class="btn mq-next">Suivante</button>
 				]]>
 			</mq:screen>
-			<mq:screen id="end" format="html5" accept="" restart="mq-restart" type="end">
+			<mq:screen id="end" format="html5" accept="" restart="mq-restart" type="end"  cssClass="mq-end">
 				<![CDATA[
 					<h1>The end !</h1>
 					<button class="btn mq-next">Restart</button>
@@ -68,4 +70,7 @@
 			</mq:screen>
 		</mq:screens>
 	</mq:scenario>
+	<mq:design>
+		<mq:css url="media/main.css" />
+	</mq:design>
 </data>

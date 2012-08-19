@@ -1,0 +1,5 @@
+{
+	"cmd": ["C:\\workspaces\\coffee-script\\bin\\node.exe", "C:\\workspaces\\coffee-script\\bin\\coffee", "-c", "$file"]
+,	"selector": "source.coffee"
+,	"working_dir": "$project_path"
+}

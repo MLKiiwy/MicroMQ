@@ -12,6 +12,8 @@ class Quizz extends XmlWrapper
 	constructor: (xml) ->
 		super xml, 'quizz'
 		@label = @xml.find('> mq\\:label').text()
+		@description = @xml.find('> mq\\:description').text()
+		@background = @xml.find('> mq\\:background').attr('url')
 		questions = []
 		@xml.find('mq\\:question').each -> questions.push new Question($(this))
 		@questions = questions
@@ -60,6 +62,8 @@ class Scenario extends XmlWrapper
 			screen = new Screen($(this), i++)
 			screens[screen.id] = screen
 		@screens = screens
+		@allowBackground = @xml.find('mq\\:screens').attr('allowBackground') == 'true'
+		@cssGlobalClass = @xml.find('mq\\:screens').attr('cssGlobalClass')
 
 class Binding
 
@@ -102,6 +106,33 @@ class Screen extends XmlWrapper
 			val = []
 		return val
 
+	background: (globalBack) ->
+		if globalBack and globalBack.length > 0
+			css = 'background-image:url(\''+globalBack+'\')';
+		else
+			css = '' 
+		@node.attr('style', css)
+
+
+#Design
+class Design extends XmlWrapper
+	constructor: (xml) ->
+		super xml, 'design'
+		
+	active: ->
+		# For each css node include it in page
+		body = $('body')
+		@xml.find('mq\\:css').each ->
+			newCss = '<link rel="stylesheet" type="text/css" href="' + Url.build($(this).attr('url')) + '" media="screen" />';
+			body.append(newCss)
+
+#Url object
+class Url
+	@init: (path) ->
+		@path = path
+	@build: (path) ->
+		return @path + '/' + path
+
 # Player
 class root.Player 
 
@@ -112,12 +143,17 @@ class root.Player
 		@node = $(@target)
 		@quizz = null
 		@scenario = null
+		@design = null
 		@running = false
 		@currentScreen = null
 		@currentQuestionNumber = -1
 		@answers = {}
 
 	load: (@url) -> 
+		#extract path
+		urlParts = @url.split('/')
+		urlParts.pop()
+		Url.init(urlParts.join('/'))
 		$.ajax @url,
 			type: 'GET'
 			dataType: 'xml'
@@ -132,6 +168,7 @@ class root.Player
 			@_reset()
 		@quizz = new Quizz($(data).find('mq\\:quizz'))
 		@scenario = new Scenario($(data).find('mq\\:scenario'))
+		@design = new Design($(data).find('mq\\:design'))
 		if(@running)
 			@_doRun()
 
@@ -165,6 +202,13 @@ class root.Player
 
 
 	_doRun: ->
+		#apply design
+		@design.active()
+
+		#apply global css if one
+		if @scenario.cssGlobalClass != null
+			@node.addClass(@scenario.cssGlobalClass)
+
 		this.next()
 
 	_setScreen: (screen, data) ->
@@ -179,6 +223,8 @@ class root.Player
 		screen.data(data)
 		# Rendering
 		screen.render(@node)
+		# Background ?
+		screen.background(@quizz.background)
 		#Binding
 		screen.bind('next',=>@_onNextClick());
 		screen.bind('valid',=>@_onValidClick());
