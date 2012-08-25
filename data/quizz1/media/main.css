@@ -1,7 +1,12 @@
 .mq-player {
 	width:750px;
 	height:450px;
+
 	background-color:lightblue;
+	background-size: 750px 450px;
+	background-repeat:none;
+
+	position:relative;
 }
 
 .mq-player.mq-start {
@@ -9,7 +14,13 @@
 }
 
 .mq-player.mq-start .mq-title{
+	position:absolute;
 
+	top:25px;
+	left:200px;
+
+	color:white;
+	font-size:28px;
 }
 
 .mq-player.mq-start .mq-description{
@@ -17,5 +28,8 @@
 }
 
 .mq-player.mq-start .mq-next{
-	
+	position:absolute;
+
+	top:350px;
+	left:350px;
 }

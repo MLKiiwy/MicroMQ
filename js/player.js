@@ -185,8 +185,12 @@
     };
 
     Screen.prototype.render = function(node) {
-      var render;
+      var cssClass, render;
       this.node = node;
+      cssClass = this.xml.attr('cssClass');
+      if (cssClass) {
+        this.node.addClass(cssClass);
+      }
       render = $.jqote(this.xml, this.data);
       return this.node.append(render);
     };
@@ -201,6 +205,11 @@
     };
 
     Screen.prototype.remove = function() {
+      var cssClass;
+      cssClass = this.xml.attr('cssClass');
+      if (cssClass) {
+        this.node.removeClass(cssClass);
+      }
       return this.node.html('');
     };
 
@@ -218,7 +227,7 @@
     Screen.prototype.background = function(globalBack) {
       var css;
       if (globalBack && globalBack.length > 0) {
-        css = 'background-image:url(\'' + globalBack + '\')';
+        css = 'background-image:url(\'' + Url.build(globalBack) + '\')';
       } else {
         css = '';
       }

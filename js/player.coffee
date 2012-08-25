@@ -84,6 +84,11 @@ class Screen extends XmlWrapper
 
 
 	render: (@node) ->
+		# set css class of screen
+		cssClass = @xml.attr('cssClass')
+		if cssClass
+			@node.addClass(cssClass)
+
 		render = $.jqote(@xml,@data)
 		return @node.append(render)
 
@@ -96,6 +101,12 @@ class Screen extends XmlWrapper
 			else 
 
 	remove: ->
+		# remove css class of screen
+		cssClass = @xml.attr('cssClass')
+		if cssClass
+			@node.removeClass(cssClass)
+
+
 		@node.html('')
 
 	getAnswers: ->
@@ -108,7 +119,7 @@ class Screen extends XmlWrapper
 
 	background: (globalBack) ->
 		if globalBack and globalBack.length > 0
-			css = 'background-image:url(\''+globalBack+'\')';
+			css = 'background-image:url(\''+Url.build(globalBack)+'\')';
 		else
 			css = '' 
 		@node.attr('style', css)
