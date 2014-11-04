@@ -1,7 +1,7 @@
 Projet MicroMQ
 =======
 
-Lecteur embedable de Quizz multimédia.
+Lecteur embedable de Quizz multimédia. (example en flash/flex : http://www.maxigalop.com/Player?mode=gratuit )
 Prototype d'essai en CoffeeScript (avec jquery / jqote2 / bootstrap )
 Format des quizz : zip (compression de xml + dossier ressources)
 
